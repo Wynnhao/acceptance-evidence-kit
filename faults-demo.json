@@ -1,0 +1,17 @@
+{
+  "note": "公开演示用注入样例——故意不隐藏。真实验收中注入/答案规格属于被测方隐私，本包不包含也不读取被测项目的答案卷。",
+  "injections": [
+    { "id": "W1", "type": "block", "path": "/app.js",
+      "realworld": "构建产物路径错误 / CDN 挂了 → 页面白屏或半成品" },
+    { "id": "B1", "type": "html_head_script", "content": "throw new Error('injected-b1-uncaught')",
+      "realworld": "未捕获异常：控制台安静、用户投诉偶发失灵" },
+    { "id": "D1", "type": "string_replace", "path": "/data/items.csv", "find": "手冲单品,28,一", "with": ",,",
+      "realworld": "数据文件损坏/字段缺失 → 汇总数字悄悄算错" },
+    { "id": "S1", "type": "html_head_css", "content": ".chart-svg{filter:blur(6px) !important}",
+      "realworld": "样式回归：关键图表模糊/不可读，肉眼容易漏" },
+    { "id": "A1", "type": "html_head_script", "content": "document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{document.getElementById('item-list').setAttribute('aria-hidden','true')},300))",
+      "realworld": "可达性退化：屏幕阅读器读不到主列表" },
+    { "id": "I1", "type": "html_head_css", "content": "[data-testid=\"tab-tasks\"]{pointer-events:none !important}",
+      "realworld": "交互失效：按钮看着在、点不动（被遮挡或误设样式）" }
+  ]
+}

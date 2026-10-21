@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>迷你销售看板 · 演示样例</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div id="app">
+  <header>
+    <h1 class="app-title" data-testid="app-title">迷你销售看板</h1>
+    <p class="sub">acceptance-evidence-kit 官方演示样例站 · 数据全为虚构</p>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-testid="tab-sales" id="tab-sales">销售</button>
+    <button class="tab" data-testid="tab-tasks" id="tab-tasks">任务</button>
+  </nav>
+
+  <section class="panel" id="panel-sales" data-testid="panel-sales">
+    <div class="stat-row">
+      <span id="counter" data-testid="counter">合计 —</span>
+      <button id="add-btn" data-testid="add-btn" class="btn">＋ 记一笔</button>
+    </div>
+    <ul id="item-list" data-testid="item-list" class="item-list"></ul>
+  </section>
+
+  <section class="panel hidden" id="panel-tasks" data-testid="panel-tasks">
+    <ul class="task-list">
+      <li>核对 CSV 导出列名</li>
+      <li>检查图表在浅色主题下的对比度</li>
+      <li>给截图补 alt 文本</li>
+    </ul>
+  </section>
+
+  <section class="chart-wrap">
+    <svg class="chart-svg" data-testid="chart-svg" viewBox="0 0 240 90" role="img" aria-label="近七日销售趋势">
+      <polyline fill="none" stroke="#3a6ea5" stroke-width="3"
+        points="10,70 45,55 80,60 115,38 150,44 185,25 220,30"/>
+      <line x1="10" y1="80" x2="230" y2="80" stroke="#999"/>
+    </svg>
+    <img src="/graphic.svg" alt="趋势缩略图标" width="48" height="48">
+  </section>
+
+  <footer><p>本页故意保持简单：它的全部作用是让验收链的每类检查都有可检查的对象。</p></footer>
+</div>
+<script src="/app.js"></script>
+</body>
+</html>

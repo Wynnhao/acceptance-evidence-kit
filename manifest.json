@@ -1,0 +1,62 @@
+{
+  "base_url": "http://127.0.0.1:8652",
+  "limits": { "nav_timeout_ms": 15000, "step_timeout_ms": 5000, "max_total_steps": 40, "reverify": 1 },
+  "abort_steps": ["P1S1"],
+  "generic": {
+    "root_selector": "#app",
+    "contrast_selectors": "h1,h2,h3",
+    "style_checks": [
+      { "selector": ".chart-svg", "label": "chart" }
+    ]
+  },
+  "known_deviations": { "url_substrings": [] },
+  "unverified_note": "演示站无终局类场景；真实项目里不可达的用例在此链中一律标 UNVERIFIED，不冒充覆盖。",
+  "paths": [
+    {
+      "id": "P1 开站",
+      "steps": [
+        { "id": "P1S1", "action": "goto", "expect": "首页加载且标题正确（正常项）",
+          "assert": [
+            { "kind": "visible", "selector": "[data-testid=\"app-title\"]", "note": "标题可见" },
+            { "kind": "text", "selector": "[data-testid=\"app-title\"]", "contains": "迷你销售看板", "note": "正常项T1" }
+          ] },
+        { "id": "P1S2", "action": "wait", "ms": 400, "expect": "CSV 数据渲染为列表（正常项）",
+          "assert": [
+            { "kind": "visible", "selector": "[data-testid=\"item-list\"] li", "note": "列表非空" },
+            { "kind": "text", "selector": "[data-testid=\"counter\"]", "contains": "合计 8 笔", "note": "正常项T2·数据行数正确" }
+          ] },
+        { "id": "P1S3", "action": "wait", "ms": 200, "expect": "趋势图样式完整（正常项）",
+          "assert": [
+            { "kind": "style", "selector": ".chart-svg", "filter_none": true, "min_size": 80, "note": "正常项T3" }
+          ] }
+      ]
+    },
+    {
+      "id": "P2 交互",
+      "steps": [
+        { "id": "P2S1", "action": "click", "selector": "[data-testid=\"tab-tasks\"]", "expect": "切到任务页（正常项）",
+          "assert": [
+            { "kind": "visible", "selector": "[data-testid=\"panel-tasks\"]", "note": "任务面板可见" },
+            { "kind": "count0", "selector": "[data-testid=\"panel-sales\"]:not(.hidden)", "note": "销售面板已收起" }
+          ] },
+        { "id": "P2S2", "action": "click", "selector": "[data-testid=\"tab-sales\"]", "expect": "切回销售页（正常项）",
+          "assert": [
+            { "kind": "visible", "selector": "[data-testid=\"panel-sales\"]", "note": "销售面板可见" }
+          ] },
+        { "id": "P2S3", "action": "click", "selector": "[data-testid=\"add-btn\"]", "expect": "记一笔后列表增长（交互生效）",
+          "assert": [
+            { "kind": "state_change", "selector": "[data-testid=\"item-list\"] li", "min_changed": 1, "note": "正常项T4" }
+          ] }
+      ]
+    },
+    {
+      "id": "P3 重载",
+      "steps": [
+        { "id": "P3S1", "action": "goto", "expect": "重新开局（演示站无持久化，口径如实）",
+          "assert": [
+            { "kind": "text", "selector": "[data-testid=\"counter\"]", "contains": "合计 8 笔", "note": "重载后回到基线数据" }
+          ] }
+      ]
+    }
+  ]
+}

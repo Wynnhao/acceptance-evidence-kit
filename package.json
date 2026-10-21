@@ -1,0 +1,17 @@
+{
+  "name": "acceptance-evidence-kit",
+  "version": "0.1.0",
+  "description": "Reproducible acceptance evidence packs for small web deliveries: pass / fail / untested per step, with screenshots and independent re-verification.",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "serve": "node proxy.mjs",
+    "run": "node run.mjs --manifest manifest.json --out out/clean"
+  },
+  "peerDependencies": {
+    "playwright": ">=1.40"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
